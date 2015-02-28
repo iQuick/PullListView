@@ -13,10 +13,10 @@ import android.widget.ListView;
 import android.widget.Scroller;
 
 /**
- * PullListView ÏÂÀ­Ë¢ĞÂ/¿¨À­¼ÓÔØ¸ü¶à
+ * PullListView ä¸‹æ‹‰åˆ·æ–°/å¡æ‹‰åŠ è½½æ›´å¤š
  * 
- * ÓµÓĞÔ¤¼ÓÔØ¹¦ÄÜ£¬¼´ListView»¬¶¯µ½×îºó¼¸ĞĞÊ±»á×Ô¶¯¼ÓÔØ¸ü¶à
- * £¨Ö»ĞèÒªÉèÖÃ {@link setPrestrain()}¼´¿É£©
+ * æ‹¥æœ‰é¢„åŠ è½½åŠŸèƒ½ï¼Œå³ListViewæ»‘åŠ¨åˆ°æœ€åå‡ è¡Œæ—¶ä¼šè‡ªåŠ¨åŠ è½½æ›´å¤š
+ * ï¼ˆåªéœ€è¦è®¾ç½® {@link setPrestrain()}å³å¯ï¼‰
  * @author Doots
  *
  */
@@ -25,34 +25,34 @@ public class PullListView extends ListView implements OnScrollListener {
 	/** TAG */
 	protected final String TAG = getClass().getName();
 
-	// ¾²Ì¬²ÎÊı
-	private final static int SCROLL_DURATION = 400; 		// ·µ»ØÊ±¼ä
-	private final static int PULL_LOAD_MORE_DELTA = 100;	// ÉÏÀ­×îĞ¡¸ß¶È
-	private final static float OFFSET_RADIO = 1.8f; 		// »¬¶¯ÏµÊı
+	// é™æ€å‚æ•°
+	private final static int SCROLL_DURATION = 400; 		// è¿”å›æ—¶é—´
+	private final static int PULL_LOAD_MORE_DELTA = 100;	// ä¸Šæ‹‰æœ€å°é«˜åº¦
+	private final static float OFFSET_RADIO = 1.8f; 		// æ»‘åŠ¨ç³»æ•°
 	
-	// ·µ»ØÍ·²¿»òÕßµ×²¿
-	private int mScrollBack = SCROLLBACK_HEADER;			// µ±Ç°·µ»Ø×´Ì¬
-	private final static int SCROLLBACK_HEADER = 0;			// ·µ»ØÍ·²¿
-	private final static int SCROLLBACK_FOOTER = 1;			// ·µ»Øµ×²¿
+	// è¿”å›å¤´éƒ¨æˆ–è€…åº•éƒ¨
+	private int mScrollBack = SCROLLBACK_HEADER;			// å½“å‰è¿”å›çŠ¶æ€
+	private final static int SCROLLBACK_HEADER = 0;			// è¿”å›å¤´éƒ¨
+	private final static int SCROLLBACK_FOOTER = 1;			// è¿”å›åº•éƒ¨
 	
-	private boolean mIsPrestrain = false;		// ÊÇ·ñÔ¤¼ÓÔØ
+	private boolean mIsPrestrain = false;		// æ˜¯å¦é¢„åŠ è½½
 	
-	private float mLastY = -1;					// ±£´æµã»÷µÄy×ø±ê
-	private Scroller mScroller;					// Ê¹ÓÃscroll·µ»Ø
-	private OnScrollListener mScrollListener;	// scroll¼àÌı
+	private float mLastY = -1;					// ä¿å­˜ç‚¹å‡»çš„yåæ ‡
+	private Scroller mScroller;					// ä½¿ç”¨scrollè¿”å›
+	private OnScrollListener mScrollListener;	// scrollç›‘å¬
 	
 	// Header View
-	private PullListViewHeader mHeaderView;		// Í·²¿£¬Ë¢ĞÂ
-	private boolean mEnablePullRefresh = true;	// ÊÇ·ñÆôÓÃ
-	private boolean mPullRefreshing = false;	// ÊÇ·ñÕıÔÚË¢ĞÂ
+	private PullListViewHeader mHeaderView;		// å¤´éƒ¨ï¼Œåˆ·æ–°
+	private boolean mEnablePullRefresh = true;	// æ˜¯å¦å¯ç”¨
+	private boolean mPullRefreshing = false;	// æ˜¯å¦æ­£åœ¨åˆ·æ–°
 
 	// Footer View
-	private PullListViewFooter mFooterView;		// µ×²¿£¬¼ÓÔØ¸ü¶à
-	private boolean mEnablePullLoad = true;		// ÊÇ·ñÆôÓÃ
-	private boolean mPullLoading = false;		// ÊÇ·ñÕı¼ÓÔØ
-	private boolean mIsFooterReady = false;		// ÊÇ·ñ¿ÉÒÔÌí¼Ó
+	private PullListViewFooter mFooterView;		// åº•éƒ¨ï¼ŒåŠ è½½æ›´å¤š
+	private boolean mEnablePullLoad = true;		// æ˜¯å¦å¯ç”¨
+	private boolean mPullLoading = false;		// æ˜¯å¦æ­£åŠ è½½
+	private boolean mIsFooterReady = false;		// æ˜¯å¦å¯ä»¥æ·»åŠ 
 
-	// ×ÜItemÊı
+	// æ€»Itemæ•°
 	private int mTotalItemCount;
 
 	public PullListView(Context context) {
@@ -72,7 +72,7 @@ public class PullListView extends ListView implements OnScrollListener {
 	
 	private void init() {
 		mScroller = new Scroller(getContext(), new DecelerateInterpolator());
-		// ÉèÖÃ¹ö¶¯¼àÌı
+		// è®¾ç½®æ»šåŠ¨ç›‘å¬
 		super.setOnScrollListener(this);
 		
 		// init header
@@ -86,7 +86,7 @@ public class PullListView extends ListView implements OnScrollListener {
 	}
 	
 	/**
-	 * ÉèÖÃÊÇ·ñÔ¤¼ÓÔØ
+	 * è®¾ç½®æ˜¯å¦é¢„åŠ è½½
 	 * @param prestrain
 	 */
 	public void setPrestrain(boolean prestrain) {
@@ -94,14 +94,14 @@ public class PullListView extends ListView implements OnScrollListener {
 	}
 	
 	/**
-	 * ÉèÖÃÒÑ¾­µ½µ×
+	 * è®¾ç½®å·²ç»åˆ°åº•
 	 */
 	public void setTheEnd() {
 		mFooterView.setState(PullListViewFooter.STATE_END);
 	}
 	
 	/**
-	 * ÉèÖÃÍ·²¿HeadViewÊÇ·ñÆôÓÃ
+	 * è®¾ç½®å¤´éƒ¨HeadViewæ˜¯å¦å¯ç”¨
 	 * @param enable
 	 */
 	public void setPullRefreshEnable(boolean enable) {
@@ -114,7 +114,7 @@ public class PullListView extends ListView implements OnScrollListener {
 	}
 	
 	/**
-	 * ÉèÖÃµ×²¿FooterViewÊÇ·ñÆôÓÃ
+	 * è®¾ç½®åº•éƒ¨FooterViewæ˜¯å¦å¯ç”¨
 	 * @param enable
 	 */
 	public void setPullLoadEnable(boolean enable) {
@@ -136,7 +136,7 @@ public class PullListView extends ListView implements OnScrollListener {
 	}
 	
 	/**
-	 * Í£Ö¹Ë¢ĞÂ
+	 * åœæ­¢åˆ·æ–°
 	 */
 	public void stopRefresh() {
 		if (mPullRefreshing) {
@@ -146,7 +146,7 @@ public class PullListView extends ListView implements OnScrollListener {
 	}
 	
 	/**
-	 * Í£Ö¹¼ÓÔØ¸ü¶à
+	 * åœæ­¢åŠ è½½æ›´å¤š
 	 */
 	public void stopLoadMore() {
 		if (mPullLoading) {
@@ -156,7 +156,7 @@ public class PullListView extends ListView implements OnScrollListener {
 	}
 	
 	/**
-	 * ¼ÓÔØ¸ü¶à
+	 * åŠ è½½æ›´å¤š
 	 * @return
 	 */
 	private OnClickListener loadMore() {
@@ -172,7 +172,7 @@ public class PullListView extends ListView implements OnScrollListener {
 	}
 	
 	/**
-	 * »¬¶¯¼àÌı
+	 * æ»‘åŠ¨ç›‘å¬
 	 */
 	private void invokeOnScrolling() {
 		if (mScrollListener instanceof OnPullScrollListener) {
@@ -182,37 +182,37 @@ public class PullListView extends ListView implements OnScrollListener {
 	}
 	
 	/**
-	 * Ë¢ĞÂÍ·²¿¸ß¶È
+	 * åˆ·æ–°å¤´éƒ¨é«˜åº¦
 	 */
 	private void updateHeaderHeight(float delta) {
 		mHeaderView.setVisiableHeight((int) delta + mHeaderView.getVisiableHeight());
 		if (mEnablePullRefresh && !mPullRefreshing) {
-			// Î´´¦ÓÚË¢ĞÂ×´Ì¬£¬¸üĞÂ¼ıÍ·
+			// æœªå¤„äºåˆ·æ–°çŠ¶æ€ï¼Œæ›´æ–°ç®­å¤´
 			if (mHeaderView.getVisiableHeight() > mHeaderView.getContentHeight()) {
 				mHeaderView.setState(PullListViewHeader.STATE_READY);
 			} else {
 				mHeaderView.setState(PullListViewHeader.STATE_NORMAL);
 			}
 		}
-		// »Ø¹öµ½¶¥²¿
+		// å›æ»šåˆ°é¡¶éƒ¨
 		setSelection(0);
 	}
 	
 	/**
-	 * ÖØÖÃHeaderView¸ß¶È
+	 * é‡ç½®HeaderViewé«˜åº¦
 	 */
 	private void resetHeaderHeight() {
 		int height = mHeaderView.getVisiableHeight();
-		if (height == 0) return;	// Ã»ÓĞ¿É¼û²¿·Ö
+		if (height == 0) return;	// æ²¡æœ‰å¯è§éƒ¨åˆ†
 		
-		// ÕıÔÚË¢ĞÂ»òÕßÏÂÀ­¸ß¶ÈĞ¡ÓÚÍ·²¿¸ß¶È
+		// æ­£åœ¨åˆ·æ–°æˆ–è€…ä¸‹æ‹‰é«˜åº¦å°äºå¤´éƒ¨é«˜åº¦
 		if (mPullRefreshing && (height <= mHeaderView.getContentHeight())) {
 			return;
 		}
 		
-		// ×îÖÕ¸ß¶È
+		// æœ€ç»ˆé«˜åº¦
 		int finalHeight = 0;
-		// ÕıÔÚË¢ĞÂ»òÕßÏÂÀ­¸ß¶È´óÓÚÍ·²¿¸ß¶È
+		// æ­£åœ¨åˆ·æ–°æˆ–è€…ä¸‹æ‹‰é«˜åº¦å¤§äºå¤´éƒ¨é«˜åº¦
 		if (mPullRefreshing && (height > mHeaderView.getContentHeight())) {
 			finalHeight = mHeaderView.getContentHeight();
 		}
@@ -223,7 +223,7 @@ public class PullListView extends ListView implements OnScrollListener {
 	}
 	
 	/**
-	 * ¸üĞÂFooterView¸ß¶È
+	 * æ›´æ–°FooterViewé«˜åº¦
 	 * @param delta
 	 */
 	private void updateFooterHeight(float delta) {
@@ -239,7 +239,7 @@ public class PullListView extends ListView implements OnScrollListener {
 	}
 	
 	/**
-	 * ÖØÖÃFooterView¸ß¶È
+	 * é‡ç½®FooterViewé«˜åº¦
 	 */
 	private void resetFooterHeight() {
 		int bottomMargin = mFooterView.getBottomPadding();
@@ -251,7 +251,7 @@ public class PullListView extends ListView implements OnScrollListener {
 	}
 	
 	/**
-	 * ¿ªÊ¼Ë¢ĞÂ
+	 * å¼€å§‹åˆ·æ–°
 	 */
 	private void startRefresh() {
 		mPullRefreshing = true;
@@ -263,7 +263,7 @@ public class PullListView extends ListView implements OnScrollListener {
 	
 	
 	/**
-	 * ¿ªÊ¼¼ÓÔØ¸ü¶à
+	 * å¼€å§‹åŠ è½½æ›´å¤š
 	 */
 	private void startLoadMore() {
 		mPullLoading = true;
@@ -288,24 +288,24 @@ public class PullListView extends ListView implements OnScrollListener {
 			final float deltaY = ev.getRawY() - mLastY;
 			mLastY = ev.getRawY();
 			if (getFirstVisiblePosition() == 0 && (mHeaderView.getVisiableHeight() > 0 || deltaY > 0)) {
-				// ÔÚ¶¥²¿²¢ÇÒ¿É¼û¸ß¶È»òÕßÒÆ¶¯¾àÀë´óÓÚ0
+				// åœ¨é¡¶éƒ¨å¹¶ä¸”å¯è§é«˜åº¦æˆ–è€…ç§»åŠ¨è·ç¦»å¤§äº0
 				updateHeaderHeight(deltaY / OFFSET_RADIO);
 				invokeOnScrolling();
 			} else if (getLastVisiblePosition() == mTotalItemCount - 1 && (mFooterView.getBottomPadding() > 0 || deltaY < 0)) {
-				// ÔÚµ×²¿²¢ÇÒÓëµ×µÄ¾àÀë»òÕßÒÆ¶¯¾àÀë´óÓÚ0
+				// åœ¨åº•éƒ¨å¹¶ä¸”ä¸åº•çš„è·ç¦»æˆ–è€…ç§»åŠ¨è·ç¦»å¤§äº0
 				updateFooterHeight(-deltaY / OFFSET_RADIO);
 			}
 			break;
 		default:
-			mLastY = -1; // ÖØÖÃ
+			mLastY = -1; // é‡ç½®
 			if (getFirstVisiblePosition() == 0) {
-				// Ë¢ĞÂ
+				// åˆ·æ–°
 				if (mEnablePullRefresh && mHeaderView.getVisiableHeight() > mHeaderView.getContentHeight() && !mPullRefreshing) {
 					startRefresh();
 				}
 				resetHeaderHeight();
 			} else if (getLastVisiblePosition() == mTotalItemCount - 1) {
-				// ¼ÓÔØ¸ü¶à
+				// åŠ è½½æ›´å¤š
 				if (mEnablePullLoad && mFooterView.getBottomPadding() > PULL_LOAD_MORE_DELTA && !mPullLoading && mFooterView.getState() != PullListViewFooter.STATE_END) {
 					startLoadMore();
 				}
@@ -318,7 +318,7 @@ public class PullListView extends ListView implements OnScrollListener {
 	
 	@Override
 	public void setAdapter(ListAdapter adapter) {
-		// È·±£FooterViewÊÇÔÚ×îÏÂÃæ£¬²¢ÇÒÖ»Ìí¼ÓÒ»´Î
+		// ç¡®ä¿FooterViewæ˜¯åœ¨æœ€ä¸‹é¢ï¼Œå¹¶ä¸”åªæ·»åŠ ä¸€æ¬¡
 		if (mIsFooterReady == false) {
 			mIsFooterReady = true;
 			addFooterView(mFooterView);
@@ -359,7 +359,7 @@ public class PullListView extends ListView implements OnScrollListener {
 			mScrollListener.onScroll(view, firstVisibleItem, visibleItemCount, totalItemCount);
 		}
 		
-		// Ô¤¼ÓÔØ
+		// é¢„åŠ è½½
 		if (firstVisibleItem + visibleItemCount >= totalItemCount && totalItemCount != 0 && totalItemCount != getHeaderViewsCount() + getFooterViewsCount()) {
 			if (mIsPrestrain && mEnablePullLoad && !mPullLoading && mFooterView.getState() != PullListViewFooter.STATE_END) {
 				startLoadMore();
@@ -369,20 +369,20 @@ public class PullListView extends ListView implements OnScrollListener {
 	
 
 	// ================================
-	// OnPullScrollListener »¬¶¯¼àÌı
+	// OnPullScrollListener æ»‘åŠ¨ç›‘å¬
 	// ================================
 	public interface OnPullScrollListener extends OnScrollListener {
-		/** ÕıÔÚ»¬¶¯  */
+		/** æ­£åœ¨æ»‘åŠ¨  */
 		public void onPullScrolling(View v);
 	}
 	
 	// ================================
-	// PullListView ¼àÌı
+	// PullListView ç›‘å¬
 	// ================================
 	public interface OnPullListViewListener {
-		/** ¸üĞÂ */
+		/** æ›´æ–° */
 		public void onRefresh();
-		/** ¼ÓÔØ¸ü¶à */
+		/** åŠ è½½æ›´å¤š */
 		public void onLoadMore();
 	}
 	private OnPullListViewListener mOnPullListViewListener;

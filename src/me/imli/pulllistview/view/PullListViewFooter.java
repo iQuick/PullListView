@@ -20,15 +20,15 @@ public class PullListViewFooter extends LinearLayout {
 	/** TAG */
 	protected final String TAG = getClass().getName();
 	
-	// ×´Ì¬Ã¶¾Ù
+	// çŠ¶æ€æšä¸¾
 	private int mState = STATE_NORMAL;
-	public final static int STATE_NORMAL = 0;		// Õı³£
-	public final static int STATE_READY = 1;		// ×¼±¸
-	public final static int STATE_LOADING = 2;		// ÕıÔÚ¼ÓÔØ
-	public final static int STATE_END = 3;			// ÒÑ¾­µ½µ×
+	public final static int STATE_NORMAL = 0;		// æ­£å¸¸
+	public final static int STATE_READY = 1;		// å‡†å¤‡
+	public final static int STATE_LOADING = 2;		// æ­£åœ¨åŠ è½½
+	public final static int STATE_END = 3;			// å·²ç»åˆ°åº•
 	
-	private TextView mTvTip;		// ÌáÊ¾ÎÄ×Ö
-	private ProgressBar mPB;		// ½ø¶ÈÌõ
+	private TextView mTvTip;		// æç¤ºæ–‡å­—
+	private ProgressBar mPB;		// è¿›åº¦æ¡
 
 	public PullListViewFooter(Context context) {
 		super(context);
@@ -53,7 +53,7 @@ public class PullListViewFooter extends LinearLayout {
 	}
 	
 	/**
-	 * ÉèÖÃ×´Ì¬
+	 * è®¾ç½®çŠ¶æ€
 	 * @param state
 	 */
 	public void setState(int state) {
@@ -76,7 +76,7 @@ public class PullListViewFooter extends LinearLayout {
 	}
 	
 	/**
-	 * »ñÈ¡×´Ì¬
+	 * è·å–çŠ¶æ€
 	 * @return
 	 */
 	public int getState() {
@@ -84,7 +84,7 @@ public class PullListViewFooter extends LinearLayout {
 	}
 	
 	/**
-	 * ÉèÖÃµ×²¿¾àÀë
+	 * è®¾ç½®åº•éƒ¨è·ç¦»
 	 * @param height
 	 */
 	public void setBottomPadding(int height) {
@@ -93,7 +93,7 @@ public class PullListViewFooter extends LinearLayout {
 	}
 	
 	/**
-	 * »ñÈ¡µ×²¿¾àÀë
+	 * è·å–åº•éƒ¨è·ç¦»
 	 */
 	public int getBottomPadding() {
 		return getPaddingBottom();

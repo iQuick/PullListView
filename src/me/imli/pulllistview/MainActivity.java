@@ -9,8 +9,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 public class MainActivity extends Activity implements OnPullListViewListener {
 	

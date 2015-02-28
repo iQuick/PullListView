@@ -24,24 +24,24 @@ public class PullListViewHeader extends LinearLayout implements View.OnClickList
 	/** TAG */
 	protected final String TAG = getClass().getName();
 	
-	// ×´Ì¬Ã¶¾Ù
-	public final static int STATE_NORMAL = 0;		// Õı³£
-	public final static int STATE_READY = 1;		// ×¼±¸
-	public final static int STATE_REFRESHING = 2;	// ÕıÔÚË¢ĞÂ
+	// çŠ¶æ€æšä¸¾
+	public final static int STATE_NORMAL = 0;		// æ­£å¸¸
+	public final static int STATE_READY = 1;		// å‡†å¤‡
+	public final static int STATE_REFRESHING = 2;	// æ­£åœ¨åˆ·æ–°
 	private int mState = STATE_NORMAL;
 	
 	private int mContentHeight = 0;
 	
-	// ¶¯»­
+	// åŠ¨ç”»
 	private final int ROTATE_ANIM_DURATION = 180;
-	private Animation mRotateUpAnim;		// ¼ıÍ·ÏòÉÏĞı×ª
-	private Animation mRotateDownAnim;		// ¼ıÍ·ÏòÏÂĞı×ª
+	private Animation mRotateUpAnim;		// ç®­å¤´å‘ä¸Šæ—‹è½¬
+	private Animation mRotateDownAnim;		// ç®­å¤´å‘ä¸‹æ—‹è½¬
 	
 	private ViewGroup mRoot;				// Root
-	private ViewGroup mContent;				// ÄÚÈİ
-	private ImageView mIvArrow;				// ¼ıÍ·
-	private ProgressBar mPB;				// ½ø¶ÈÌõ
-	private TextView mTvTip;				// ÌáÊ¾ÎÄ×Ö
+	private ViewGroup mContent;				// å†…å®¹
+	private ImageView mIvArrow;				// ç®­å¤´
+	private ProgressBar mPB;				// è¿›åº¦æ¡
+	private TextView mTvTip;				// æç¤ºæ–‡å­—
 	
 
 	public PullListViewHeader(Context context) {
@@ -90,19 +90,19 @@ public class PullListViewHeader extends LinearLayout implements View.OnClickList
 	}
 	
 	/**
-	 * ÉèÖÃ×´Ì¬
+	 * è®¾ç½®çŠ¶æ€
 	 * @param state
 	 */
 	public void setState(int state) {
 		if (state == mState) return;
 		
 		if (state == STATE_REFRESHING) {
-			// ÕıÔÚË¢ĞÂ, Òş²Ø¼ıÍ·
+			// æ­£åœ¨åˆ·æ–°, éšè—ç®­å¤´
 			mIvArrow.clearAnimation();
 			mIvArrow.setVisibility(View.INVISIBLE);
 			mPB.setVisibility(View.VISIBLE);
 		} else {
-			// ÏÔÊ¾¼ıÍ·
+			// æ˜¾ç¤ºç®­å¤´
 			mIvArrow.setVisibility(View.VISIBLE);
 			mPB.setVisibility(View.INVISIBLE);
 		}
@@ -130,12 +130,12 @@ public class PullListViewHeader extends LinearLayout implements View.OnClickList
 			break;
 		}
 		
-		// ¸ü¸Ä×´Ì¬
+		// æ›´æ”¹çŠ¶æ€
 		mState = state;
 	}
 	
 	/**
-	 * »ñÈ¡×´Ì¬
+	 * è·å–çŠ¶æ€
 	 * @return
 	 */
 	public int getState() {
@@ -143,19 +143,19 @@ public class PullListViewHeader extends LinearLayout implements View.OnClickList
 	}
 	
 	/**
-	 * ÉèÖÃ¿É¼û¸ß¶È
+	 * è®¾ç½®å¯è§é«˜åº¦
 	 * @param height
 	 */
 	public void setVisiableHeight(int height) {
 		if (height < 0) height = 0;
-		// ÉèÖÃ¸ß¶È
+		// è®¾ç½®é«˜åº¦
 		LayoutParams params = (LayoutParams) mRoot.getLayoutParams();
 		params.height = height;
 		mRoot.setLayoutParams(params);
 	}
 	
 	/**
-	 * »ñÈ¡¿É¼û¸ß¶È
+	 * è·å–å¯è§é«˜åº¦
 	 * @return
 	 */
 	public int getVisiableHeight() {
@@ -163,7 +163,7 @@ public class PullListViewHeader extends LinearLayout implements View.OnClickList
 	}
 	
 	/**
-	 * »ñÈ¡ÄÚÈİ¸ß¶È
+	 * è·å–å†…å®¹é«˜åº¦
 	 * @return
 	 */
 	public int getContentHeight() {
@@ -171,14 +171,14 @@ public class PullListViewHeader extends LinearLayout implements View.OnClickList
 	}
 	
 	/**
-	 * ÏÔÊ¾
+	 * æ˜¾ç¤º
 	 */
 	public void show() {
 		setVisibility(View.VISIBLE);
 	}
 	
 	/**
-	 * Òş²Ø
+	 * éšè—
 	 */
 	public void hide() {
 		setVisibility(View.GONE);
