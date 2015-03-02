@@ -288,12 +288,12 @@ public class PullListView extends ListView implements OnScrollListener {
 		case MotionEvent.ACTION_MOVE:
 			final float deltaY = ev.getRawY() - mLastY;
 			mLastY = ev.getRawY();
-			if (getFirstVisiblePosition() == 0 && (mHeaderView.getVisiableHeight() > 0 || deltaY > 0)) {
+			if (getFirstVisiblePosition() == 0 && (mHeaderView.getVisiableHeight() > 0 || deltaY > 0) && mRefreshOrLoad !=2) {
 				// 在顶部并且可见高度或者移动距离大于0
 				updateHeaderHeight(deltaY / OFFSET_RADIO);
 				invokeOnScrolling();
 				mRefreshOrLoad = 1;
-			} else if (getLastVisiblePosition() == mTotalItemCount - 1 && (mFooterView.getBottomPadding() > 0 || deltaY < 0)) {
+			} else if (getLastVisiblePosition() == mTotalItemCount - 1 && (mFooterView.getBottomPadding() > 0 || deltaY < 0) && mRefreshOrLoad != 1) {
 				// 在底部并且与底的距离或者移动距离大于0
 				updateFooterHeight(-deltaY / OFFSET_RADIO);
 				mRefreshOrLoad = 2;
