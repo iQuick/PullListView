@@ -273,6 +273,7 @@ public class PullListView extends ListView implements OnScrollListener {
 		}
 	}
 	
+	private int mRefreshOrLoad = 0;
 	@SuppressLint("ClickableViewAccessibility")
 	@Override
 	public boolean onTouchEvent(MotionEvent ev) {
@@ -291,20 +292,22 @@ public class PullListView extends ListView implements OnScrollListener {
 				// 在顶部并且可见高度或者移动距离大于0
 				updateHeaderHeight(deltaY / OFFSET_RADIO);
 				invokeOnScrolling();
+				mRefreshOrLoad = 1;
 			} else if (getLastVisiblePosition() == mTotalItemCount - 1 && (mFooterView.getBottomPadding() > 0 || deltaY < 0)) {
 				// 在底部并且与底的距离或者移动距离大于0
 				updateFooterHeight(-deltaY / OFFSET_RADIO);
+				mRefreshOrLoad = 2;
 			}
 			break;
 		default:
 			mLastY = -1; // 重置
-			if (getFirstVisiblePosition() == 0) {
+			if (getFirstVisiblePosition() == 0 && mRefreshOrLoad == 1) {
 				// 刷新
 				if (mEnablePullRefresh && mHeaderView.getVisiableHeight() > mHeaderView.getContentHeight() && !mPullRefreshing) {
 					startRefresh();
 				}
 				resetHeaderHeight();
-			} else if (getLastVisiblePosition() == mTotalItemCount - 1) {
+			} else if (getLastVisiblePosition() == mTotalItemCount - 1 && mRefreshOrLoad == 2) {
 				// 加载更多
 				if (mEnablePullLoad && mFooterView.getBottomPadding() > PULL_LOAD_MORE_DELTA && !mPullLoading && mFooterView.getState() != PullListViewFooter.STATE_END) {
 					startLoadMore();
