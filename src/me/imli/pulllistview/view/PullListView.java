@@ -27,7 +27,7 @@ public class PullListView extends ListView implements OnScrollListener {
 
 	// 静态参数
 	private final static int SCROLL_DURATION = 400; 		// 返回时间
-	private final static int PULL_LOAD_MORE_DELTA = 100;	// 上拉最小高度
+	private final static int PULL_LOAD_MORE_DELTA = 100;		// 上拉最小高度
 	private final static float OFFSET_RADIO = 1.8f; 		// 滑动系数
 	
 	// 返回头部或者底部
@@ -37,8 +37,8 @@ public class PullListView extends ListView implements OnScrollListener {
 	
 	private boolean mIsPrestrain = false;		// 是否预加载
 	
-	private float mLastY = -1;					// 保存点击的y坐标
-	private Scroller mScroller;					// 使用scroll返回
+	private float mLastY = -1;			// 保存点击的y坐标
+	private Scroller mScroller;			// 使用scroll返回
 	private OnScrollListener mScrollListener;	// scroll监听
 	
 	// Header View
@@ -314,6 +314,7 @@ public class PullListView extends ListView implements OnScrollListener {
 				}
 				resetFooterHeight();
 			}
+			mRefreshOrLoad = 0;
 			break;
 		}
 		return super.onTouchEvent(ev);
