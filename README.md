@@ -1,10 +1,12 @@
 # PullListView
 ===
 
-PullListViewобю╜к╒пб/ иою╜╪сть╦Э╤Ю
+PullListViewД╦▀Ф▀┴Е┬╥Ф√╟/ Д╦┼Ф▀┴Е┼═Х╫╫Ф⌡╢Е╓ 
 
-## й╧сц
-сц╥╗сКф╫Ёё╣дListViewр╩яЫ
+## Е█ Е╝╒О╪ [http://www.imli.me/2015/03/02/pulllistview](http://www.imli.me/2015/03/02/pulllistview/)
+
+## Д╫©Г■╗
+Г■╗ФЁ∙Д╦▌Е╧ЁЕ╦╦Г └ListViewД╦─Ф═╥
 
 >mListView = (PullListView) findViewById(R.id.listview);
 
@@ -12,12 +14,12 @@ PullListViewобю╜к╒пб/ иою╜╪сть╦Э╤Ю
 
 >mListView.setAdapter(mAdapter);
 
->mListView.setPrestrain(true);				// иХжцт╓╪сть
+>mListView.setPrestrain(true);				// Х╝╬Г╫╝И╒└Е┼═Х╫╫
 
->mListView.setOnPullListViewListener(this);	// иХжцк╒пб/╪сть╪ЮлЩ
+>mListView.setOnPullListViewListener(this);	// Х╝╬Г╫╝Е┬╥Ф√╟/Е┼═Х╫╫Г⌡▒Е░╛
 
->mListView.setTheEnd();						// иХжцря╬╜╣╫╣в
+>mListView.setTheEnd();						// Х╝╬Г╫╝Е╥╡Г╩▐Е┬╟Е╨∙
 
-## льи╚
-* тЖ╪сакт╓╪сть╧╕дэ
-* иХжц╣╫╣вё╗╪╢╡╩ты╪сть╦Э╤Юё╘
+## Г┴╧Х┴╡
+* Е╒·Е┼═Д╨├И╒└Е┼═Х╫╫Е┼÷Х┐╫
+* Х╝╬Г╫╝Е┬╟Е╨∙О╪┬Е█ЁД╦█Е├█Е┼═Х╫╫Ф⌡╢Е╓ О╪┴
